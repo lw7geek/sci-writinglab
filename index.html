@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SCI WritingLab — 学术论文写作工具 | 有译思翻译</title>
-<meta name="description" content="免费SCI论文投稿规范清单生成器和语言预审工具，由有译思翻译Transyes出品">
+<meta name="description" content="免费SCI论文投稿规范清单、语言预审、期刊匹配工具，由有译思翻译Transyes出品">
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:wght@400;600;700;800&family=Noto+Serif+SC:wght@400;700&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
@@ -12,386 +12,101 @@
 body{min-height:100vh;background:var(--bg);color:var(--fg);font-family:'Source Serif 4','Noto Serif SC',Georgia,serif;line-height:1.7}
 header{border-bottom:1px solid var(--bd);padding:14px 24px;background:var(--card)}
 .hdr-inner{max-width:900px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
-.logo{font-size:22px;font-weight:800;color:var(--h);letter-spacing:-1px}
+.logo{font-size:22px;font-weight:800;color:var(--h);letter-spacing:-1px;text-decoration:none}
 .logo small{font-size:11px;color:var(--t3);font-family:sans-serif;font-weight:400;margin-left:8px}
 nav{display:flex;gap:4px}
-.nav-btn{background:transparent;border:1px solid transparent;border-radius:6px;padding:7px 14px;font-size:13px;cursor:pointer;color:var(--t2);font-family:sans-serif;transition:all .15s}
+.nav-btn{display:inline-block;background:transparent;border:1px solid transparent;border-radius:6px;padding:7px 14px;font-size:13px;cursor:pointer;color:var(--t2);font-family:sans-serif;text-decoration:none;transition:all .15s}
+.nav-btn:hover{color:var(--h)}
 .nav-btn.active{background:var(--bg2);border-color:var(--bd);color:var(--h);font-weight:700}
-main{max-width:900px;margin:0 auto;padding:24px 20px}
-h1{font-size:30px;font-weight:800;color:var(--h);margin-bottom:10px;letter-spacing:-1px}
-h2{font-size:21px;font-weight:800;color:var(--h);margin-bottom:4px}
-h3{font-size:15px;font-weight:700;margin:16px 0 6px;color:var(--h)}
-.subtitle{font-size:15px;color:var(--t2);max-width:520px;margin:0 auto 32px;line-height:1.7;text-align:center}
-.desc{font-size:13px;color:var(--t3);margin-bottom:18px;font-family:sans-serif}
-.row{display:flex;gap:10px;margin-bottom:18px;flex-wrap:wrap}
-input[type=text],textarea{width:100%;padding:12px 16px;border:1px solid var(--bd);border-radius:8px;font-size:14px;font-family:sans-serif;outline:none;background:var(--card);transition:border .15s}
-input[type=text]:focus,textarea:focus{border-color:var(--a)}
-textarea{font-family:'Source Serif 4',Georgia,serif;font-size:13.5px;line-height:1.7;resize:vertical;height:180px}
-.btn{padding:12px 24px;background:var(--a);color:#fff;border:none;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;font-family:sans-serif;transition:all .15s;letter-spacing:.3px}
-.btn:hover{background:var(--a2)}
-.btn:disabled{opacity:.45;cursor:not-allowed}
-.btn-sm{padding:5px 12px;border-radius:5px;font-size:12px;border:1px solid var(--bd);background:var(--card);color:var(--t2);cursor:pointer;font-family:sans-serif;transition:all .15s}
-.btn-sm:hover,.btn-sm.active{border-color:var(--a);color:var(--a)}
-.btn-sm.sel{background:var(--a);color:#fff;border-color:var(--a)}
-.tags{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px;align-items:center}
-.tags span{font-size:11px;color:var(--t3);font-family:sans-serif;line-height:28px}
-.cards{display:grid;grid-template-columns:1fr 1fr;gap:18px;max-width:640px;margin:0 auto 32px}
-.tool-card{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:26px 22px;cursor:pointer;transition:all .2s;text-align:left}
-.tool-card:hover{border-color:var(--a);transform:translateY(-2px)}
-.tool-card .icon{font-size:30px;margin-bottom:10px}
-.tool-card h3{margin:0 0 6px;font-size:16px}
+main{max-width:900px;margin:0 auto;padding:40px 20px 24px}
+h1{font-size:32px;font-weight:800;color:var(--h);margin-bottom:10px;letter-spacing:-1px;text-align:center}
+.subtitle{font-size:15px;color:var(--t2);max-width:480px;margin:0 auto 40px;line-height:1.7;text-align:center;font-family:sans-serif}
+/* 工具卡片网格 */
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-bottom:40px}
+.tool-card{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:28px 22px;text-decoration:none;transition:all .2s;display:block}
+.tool-card:hover{border-color:var(--a);transform:translateY(-2px);box-shadow:0 4px 16px rgba(180,83,9,.08)}
+.tool-card .icon{font-size:32px;margin-bottom:12px}
+.tool-card h3{margin:0 0 8px;font-size:16px;font-weight:700;color:var(--h)}
 .tool-card p{font-size:13px;color:var(--t2);font-family:sans-serif;line-height:1.6;margin-bottom:14px}
-.tool-card .link{font-size:13px;color:var(--a);font-weight:600;font-family:sans-serif}
-.cta-box{margin-top:44px;padding:22px 28px;background:var(--bg2);border-radius:12px;max-width:600px;margin-left:auto;margin-right:auto}
-.cta-box h3{margin:0 0 8px;font-family:sans-serif;font-size:15px}
-.cta-box p{font-size:13px;color:var(--t2);font-family:sans-serif;line-height:1.7}
-.cta-btn{display:inline-block;margin-top:10px;padding:8px 20px;background:var(--a);color:#fff;border-radius:6px;font-size:13px;text-decoration:none;font-family:sans-serif;font-weight:600}
-.result{background:var(--card);border:1px solid var(--bd);border-radius:10px;padding:22px 26px;margin-top:12px;line-height:1.7;font-size:13.5px}
-.result h2{font-size:17px;margin:18px 0 8px}
-.result h3{font-size:14px;margin:14px 0 6px}
-.result table{width:100%;border-collapse:collapse;margin:10px 0;font-size:12.5px}
-.result th{text-align:left;padding:7px 10px;border-bottom:2px solid var(--bd);font-size:12px;color:var(--t2);background:var(--bg2)}
-.result td{padding:6px 10px;border-bottom:1px solid var(--bd);line-height:1.55}
-.result ul,.result ol{margin:6px 0 6px 20px}
-.result li{margin:3px 0;font-size:13px}
-.result hr{border:none;border-top:1px solid var(--bd);margin:14px 0}
-.result blockquote{border-left:3px solid var(--a);padding-left:12px;margin:8px 0;color:var(--t2);font-style:italic}
-.result code{background:var(--bg2);padding:1px 5px;border-radius:3px;font-size:12px}
-.err{padding:10px 14px;background:#fef2f2;border:1px solid #fecaca;border-radius:8px;color:#991b1b;font-size:13px;margin:12px 0;font-family:sans-serif}
-.loading{text-align:center;padding:32px;color:var(--t3);font-family:sans-serif;font-size:14px}
-.spinner{display:inline-block;width:20px;height:20px;border:2px solid var(--bd);border-top-color:var(--a);border-radius:50%;animation:spin .7s linear infinite;margin-right:8px;vertical-align:middle}
-@keyframes spin{to{transform:rotate(360deg)}}
+.tool-card .arrow{font-size:13px;color:var(--a);font-weight:600;font-family:sans-serif}
+/* 联系入口 */
+.cta-box{padding:26px 32px;background:var(--bg2);border-radius:14px;max-width:700px;margin:0 auto}
+.cta-box h3{margin:0 0 8px;font-family:sans-serif;font-size:16px;color:var(--h)}
+.cta-box p{font-size:13px;color:var(--t2);font-family:sans-serif;line-height:1.7;margin-bottom:14px}
+.contact-row{display:flex;gap:28px;align-items:flex-start;flex-wrap:wrap}
+.contact-info{font-family:sans-serif;font-size:13px;color:var(--fg)}
+.contact-info div{margin-bottom:7px}
+.contact-info a{color:var(--a);text-decoration:none;font-weight:600}
+.contact-info a:hover{text-decoration:underline}
+.qr-img{width:96px;height:96px;border-radius:10px;border:1px solid var(--bd);object-fit:cover}
+.services{margin-top:12px;font-size:12px;color:var(--t3);font-family:sans-serif}
 footer{margin-top:44px;padding:22px 0;border-top:1px solid var(--bd);text-align:center;font-size:12px;color:var(--t3);font-family:sans-serif;line-height:1.8}
-.meta{display:flex;justify-content:space-between;align-items:center;margin:8px 0 14px;flex-wrap:wrap;gap:8px}
-.meta span{font-size:12px;color:var(--t3);font-family:sans-serif}
-@media(max-width:640px){.cards{grid-template-columns:1fr}.hdr-inner{flex-direction:column;align-items:flex-start}h1{font-size:24px}}
+@media(max-width:640px){
+  .cards{grid-template-columns:1fr}
+  .hdr-inner{flex-direction:column;align-items:flex-start}
+  h1{font-size:26px}
+}
 </style>
 </head>
 <body>
 
 <header>
 <div class="hdr-inner">
-  <div class="logo">SCI WritingLab<small>by Transyes</small></div>
+  <a class="logo" href="index.html">SCI WritingLab<small>by Transyes</small></a>
   <nav>
-    <button class="nav-btn active" onclick="showTab('home')">首页</button>
-    <button class="nav-btn" onclick="showTab('checklist')">📋 投稿清单</button>
-    <button class="nav-btn" onclick="showTab('prereview')">📊 语言预审</button>
+    <a class="nav-btn active" href="index.html">首页</a>
+    <a class="nav-btn" href="checklist.html">📋 投稿清单</a>
+    <a class="nav-btn" href="prereview.html">📊 语言预审</a>
+    <a class="nav-btn" href="matcher.html">🧭 期刊匹配</a>
   </nav>
 </div>
 </header>
 
 <main>
-  <!-- Home -->
-  <div id="tab-home">
-    <div style="text-align:center;padding:40px 0 20px">
-      <h1>SCI 论文写作工具站</h1>
-      <p class="subtitle">免费工具，助你在投稿前完成自查。<br>由有译思翻译（Transyes）出品。</p>
-      <div class="cards">
-        <div class="tool-card" onclick="showTab('checklist')">
-          <div class="icon">📋</div>
-          <h3>投稿规范 Checklist</h3>
-          <p>输入目标期刊名称，生成完整的投稿规范清单。无需上传任何论文内容。</p>
-          <span class="link">开始使用 →</span>
-        </div>
-        <div class="tool-card" onclick="showTab('prereview')">
-          <div class="icon">📊</div>
-          <h3>SCI 语言预审</h3>
-          <p>粘贴论文段落，获得时态、语态、用词、逻辑、格式五维度评分报告。</p>
-          <span class="link">开始使用 →</span>
-        </div>
-      </div>
-      <div class="cta-box">
-        <h3>需要专业润色服务？</h3>
-        <p>以上工具提供 AI 语言层面的快速预审。如需资深学术编辑的专业 SCI 论文润色——包括逻辑优化、审稿人偏好适配、Cover Letter 撰写——欢迎了解有译思的学术语言服务。</p>
-        <a class="cta-btn" href="#contact">了解润色服务 →</a>
-      </div>
-    </div>
+  <h1>SCI 论文写作工具站</h1>
+  <p class="subtitle">三款免费工具，帮你在投稿前完成自查与选刊。由有译思翻译（Transyes）出品。</p>
+
+  <div class="cards">
+    <a class="tool-card" href="matcher.html">
+      <div class="icon">🧭</div>
+      <h3>期刊匹配</h3>
+      <p>输入研究方向与稿件关键信息，快速获得候选期刊匹配建议及投稿策略。</p>
+      <span class="arrow">开始使用 →</span>
+    </a>
+    <a class="tool-card" href="checklist.html">
+      <div class="icon">📋</div>
+      <h3>投稿规范 Checklist</h3>
+      <p>输入目标期刊名称，生成完整的投稿规范清单与投稿前自查表。</p>
+      <span class="arrow">开始使用 →</span>
+    </a>
+    <a class="tool-card" href="prereview.html">
+      <div class="icon">📊</div>
+      <h3>SCI 语言预审</h3>
+      <p>粘贴论文段落，获得时态、语态、用词、逻辑、格式五维度评分报告。</p>
+      <span class="arrow">开始使用 →</span>
+    </a>
   </div>
 
-  <!-- Tool A: Checklist -->
-  <div id="tab-checklist" style="display:none">
-    <h2>📋 投稿规范 Checklist 生成器</h2>
-    <p class="desc">输入目标期刊名称，自动生成投稿规范清单、格式要求、自查表。无需上传论文。</p>
-    <div class="row">
-      <input type="text" id="journal-input" placeholder="输入期刊名称，如 Nature Communications, JACS, Lancet..." style="flex:1" onkeydown="if(event.key==='Enter')runChecklist()">
-      <button class="btn" id="btn-checklist" onclick="runChecklist()">生成清单</button>
+  <!-- 有译思联系入口 -->
+  <div class="cta-box">
+    <h3>需要专业 SCI 论文润色服务？</h3>
+    <p>以上工具提供 AI 语言层面的快速预审。如需资深学术编辑的专业 SCI 论文润色——包括逻辑优化、审稿人偏好适配、Cover Letter 撰写——欢迎联系有译思翻译。</p>
+    <div class="contact-row">
+      <div class="contact-info">
+        <div>📧 邮箱：<a href="mailto:project@transyes.cn">project@transyes.cn</a></div>
+        <div>💬 微信：<strong>Transyes_bj</strong></div>
+        <div style="margin-top:6px;font-size:12px;color:var(--t3)">扫右侧二维码添加微信 →</div>
+      </div>
+      <img class="qr-img" src="有译思语言服务二维码.jpg" alt="有译思翻译微信二维码">
     </div>
-    <div class="tags">
-      <span>热门期刊：</span>
-      <button class="btn-sm" onclick="setJournal('Nature Communications')">Nature Communications</button>
-      <button class="btn-sm" onclick="setJournal('Advanced Materials')">Advanced Materials</button>
-      <button class="btn-sm" onclick="setJournal('JACS')">JACS</button>
-      <button class="btn-sm" onclick="setJournal('The Lancet')">The Lancet</button>
-      <button class="btn-sm" onclick="setJournal('IEEE TPAMI')">IEEE TPAMI</button>
-      <button class="btn-sm" onclick="setJournal('PNAS')">PNAS</button>
-      <button class="btn-sm" onclick="setJournal('MIS Quarterly')">MIS Quarterly</button>
-    </div>
-    <div id="checklist-error"></div>
-    <div id="checklist-loading" style="display:none"><div class="loading"><span class="spinner"></span>正在生成投稿清单，请稍候（约 15-30 秒）...</div></div>
-    <div id="checklist-result"></div>
-  </div>
-
-  <!-- Tool C: Pre-review -->
-  <div id="tab-prereview" style="display:none">
-    <h2>📊 SCI 语言预审报告</h2>
-    <p class="desc">粘贴英文论文段落，获得时态、语态、用词、逻辑、格式五个维度的质量评分。</p>
-    <div class="tags" id="section-tags">
-      <button class="btn-sm sel" onclick="setSection(this,'auto')">自动判断</button>
-      <button class="btn-sm" onclick="setSection(this,'Abstract')">Abstract</button>
-      <button class="btn-sm" onclick="setSection(this,'Introduction')">Introduction</button>
-      <button class="btn-sm" onclick="setSection(this,'Methods')">Methods</button>
-      <button class="btn-sm" onclick="setSection(this,'Results')">Results</button>
-      <button class="btn-sm" onclick="setSection(this,'Discussion')">Discussion</button>
-      <button class="btn-sm" onclick="setSection(this,'Conclusion')">Conclusion</button>
-    </div>
-    <textarea id="text-input" placeholder="Paste your manuscript paragraph here...&#10;&#10;For example:&#10;The expression level of miR-21 was significantly upregulated in tumor tissues compared to adjacent normal tissues (Figure 2A). As shown in Figure 2B, the proliferation rate increased by 45% after transfection..."></textarea>
-    <div class="meta">
-      <span id="word-count">至少 20 个单词</span>
-      <button class="btn" id="btn-prereview" onclick="runPrereview()">生成预审报告</button>
-    </div>
-    <div id="prereview-error"></div>
-    <div id="prereview-loading" style="display:none"><div class="loading"><span class="spinner"></span>正在进行五维度语言预审，请稍候（约 20-40 秒）...</div></div>
-    <div id="prereview-result"></div>
+    <div class="services">论文润色 · 投稿辅助 · 学术翻译 · 写作培训</div>
   </div>
 
   <footer>
     SCI WritingLab — 免费学术写作工具 | 由有译思翻译（Transyes）出品<br>
-    工具基于 AI 生成，结果仅供参考，请以期刊官方要求为准<br>
-    <span style="color:var(--a)">论文润色 · 投稿辅助 · 学术翻译 · 写作培训</span>
+    工具基于 AI 生成，结果仅供参考，请以期刊官方要求为准
   </footer>
 </main>
 
-<script>
-
-// ═══════════════════════════════════════
-const API_KEY = "";
-// ═══════════════════════════════════════
-
-const API_URL = "https://sci-api-proxy.liwanqichina.workers.dev";
-const API_MODEL = "deepseek-chat";
-
-let currentSection = "auto";
-
-// ─── Tab switching ───
-function showTab(id) {
-  document.querySelectorAll('[id^="tab-"]').forEach(el => el.style.display = 'none');
-  document.getElementById('tab-' + id).style.display = 'block';
-  document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
-  event.target.classList.add('active');
-}
-
-// ─── Journal quick select ───
-function setJournal(name) {
-  document.getElementById('journal-input').value = name;
-}
-
-// ─── Section select ───
-function setSection(btn, sec) {
-  currentSection = sec;
-  document.querySelectorAll('#section-tags .btn-sm').forEach(b => b.classList.remove('sel'));
-  btn.classList.add('sel');
-}
-
-// ─── Word count ───
-document.getElementById('text-input').addEventListener('input', function() {
-  const words = this.value.trim().split(/\s+/).filter(w => w).length;
-  document.getElementById('word-count').textContent = words > 0 ? words + ' words' : '至少 20 个单词';
-});
-
-// ─── API call ───
-async function callAPI(systemPrompt, userMessage) {
-  const res = await fetch(API_URL, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      model: API_MODEL,
-      messages: [
-        { role: "system", content: systemPrompt },
-        { role: "user", content: userMessage }
-      ],
-      temperature: 0.15,
-      max_tokens: 4096
-    })
-  });
-  if (!res.ok) {
-    const err = await res.text();
-    throw new Error("API 错误 (" + res.status + "): " + err.substring(0, 150));
-  }
-  const data = await res.json();
-  return data.choices[0].message.content;
-}
-
-// ─── Markdown renderer ───
-function renderMD(text) {
-  let html = text
-    .replace(/^### (.+)$/gm, '<h3>$1</h3>')
-    .replace(/^## (.+)$/gm, '<h2>$1</h2>')
-    .replace(/\*\*(.+?)\*\*/g, '<strong style="color:var(--h)">$1</strong>')
-    .replace(/^- \[ \] (.+)$/gm, '<div style="display:flex;gap:8px;margin:2px 0"><span style="opacity:.4">☐</span><span>$1</span></div>')
-    .replace(/^- (.+)$/gm, '<div style="display:flex;gap:8px;margin:2px 0 2px 8px"><span style="color:var(--a);font-weight:700">·</span><span>$1</span></div>')
-    .replace(/^> (.+)$/gm, '<blockquote>$1</blockquote>')
-    .replace(/`([^`]+)`/g, '<code>$1</code>')
-    .replace(/^---$/gm, '<hr>')
-    .replace(/^\*(.+)\*$/gm, '<p style="font-size:12px;color:var(--t3);font-style:italic">$1</p>');
-
-  // Tables
-  html = html.replace(/((?:\|.+\|\n?)+)/g, function(match) {
-    const rows = match.trim().split('\n').filter(r => r.trim());
-    if (rows.length < 2) return match;
-    let table = '<table>';
-    rows.forEach((row, i) => {
-      const cells = row.split('|').slice(1, -1).map(c => c.trim());
-      if (cells.every(c => /^[\-:]+$/.test(c))) return;
-      const tag = i === 0 ? 'th' : 'td';
-      table += '<tr>' + cells.map(c => '<' + tag + '>' + c + '</' + tag + '>').join('') + '</tr>';
-    });
-    table += '</table>';
-    return table;
-  });
-
-  // Paragraphs
-  html = html.split('\n').map(line => {
-    line = line.trim();
-    if (!line || line.startsWith('<')) return line;
-    return '<p>' + line + '</p>';
-  }).join('\n');
-
-  return html;
-}
-
-// ─── Checklist System Prompt ───
-const CHECKLIST_PROMPT = `你是学术期刊投稿规范专家。用户提供一个期刊名称，你输出该期刊的投稿规范清单。
-
-要求：
-1. 基于你对该期刊的知识生成清单，不确定的信息标注"⚠️ 请以期刊官网为准"
-2. 使用 Markdown 格式，包含以下部分：
-
-## 📋 [期刊名] 投稿规范清单
-
-### 基本信息（表格：全称、出版商、影响因子、收录索引、审稿周期、版面费、官网、投稿系统）
-### 稿件格式要求（文件格式、字数限制、字体行距、页边距、行号）
-### 结构规范（用 - [ ] 清单格式列出：Title Page, Abstract字数限制, Keywords数量, 各章节, References, Figures, Supplementary）
-### 参考文献格式（引用格式类型、格式示例）
-### 图表要求（分辨率、文件格式、彩色图收费）
-### 语言要求（润色要求、各章节时态规范简表）
-### Cover Letter 要点
-### 投稿前自查清单（用 - [ ] 格式）
-
----
-*由有译思翻译（Transyes）生成 | 如需专业润色和投稿辅助，欢迎咨询*`;
-
-// ─── Pre-review System Prompt ───
-const PREREVIEW_PROMPT = `你是拥有 Nature/Science/Cell 系列审稿经验的资深学术编辑。用户粘贴英文论文段落，你执行全面的语言质量预审。
-
-## 审查维度
-
-### 1. 时态规范（按章节严格检查）
-先判断章节类型，然后：
-- Abstract：背景用现在时，方法和结果用过去时，结论用现在时
-- Introduction：背景用现在时，前人研究用过去时/完成时，引用内容可用现在时
-- Methods：全部过去时被动语态
-- Results：实验观察用过去时，图表描述用现在时
-  ⚠️ 特别检查"Figure X shows [现在时] that Y decreased [过去时]"的主从句时态隔离
-- Discussion：解释用现在时，回顾本研究操作用过去时
-
-### 2. 语态与句式
-被动/主动使用是否恰当、长句是否需拆分、主谓一致性
-
-### 3. 学术用词
-口语化表达（a lot of→numerous）、模糊表达（some→several）、冗余表达（in order to→to）
-
-### 4. 逻辑与衔接
-句间逻辑、过渡词、因果/转折用词
-
-### 5. 格式与规范
-数字表达、缩写全称、拉丁术语斜体、标点
-
-## 输出格式（严格遵循）
-
-### 📊 SCI 语言预审报告
-
-**📍 章节判定**：[章节名] | **依据**：简述
-
-**📈 综合评分**
-
-| 维度 | 评分 | 说明 |
-|------|------|------|
-| 时态规范 | X/5 | 简评 |
-| 语态句式 | X/5 | 简评 |
-| 学术用词 | X/5 | 简评 |
-| 逻辑衔接 | X/5 | 简评 |
-| 格式规范 | X/5 | 简评 |
-| **总分** | **X/25** | |
-
-**🔍 问题明细**
-
-| # | 原文 | 维度 | 问题分析 | 修正建议 |
-|---|------|------|---------|---------|
-
-**✅ 正确用法亮点**（列出1-2处好的表达）
-
-**💡 整体建议**（2-3句改进方向）
-
----
-*由 SCI WritingLab 生成 | 有译思翻译（Transyes）出品*
-*本报告覆盖语言维度的AI预审。完整SCI润色还应涵盖学术逻辑、数据呈现等深层维度。*
-*→ 了解有译思专业SCI论文润色服务*`;
-
-// ─── Run Checklist ───
-async function runChecklist() {
-  const journal = document.getElementById('journal-input').value.trim();
-  if (!journal) return;
-  const btn = document.getElementById('btn-checklist');
-  const loading = document.getElementById('checklist-loading');
-  const result = document.getElementById('checklist-result');
-  const error = document.getElementById('checklist-error');
-
-  btn.disabled = true;
-  loading.style.display = 'block';
-  result.innerHTML = '';
-  error.innerHTML = '';
-
-  try {
-    const r = await callAPI(CHECKLIST_PROMPT, '请生成 "' + journal + '" 的投稿规范清单。');
-    result.innerHTML = '<div class="result">' + renderMD(r) + '</div>';
-  } catch (e) {
-    error.innerHTML = '<div class="err">⚠ ' + e.message + '</div>';
-  }
-
-  btn.disabled = false;
-  loading.style.display = 'none';
-}
-
-// ─── Run Pre-review ───
-async function runPrereview() {
-  const text = document.getElementById('text-input').value.trim();
-  const words = text.split(/\s+/).filter(w => w).length;
-  if (words < 20) {
-    document.getElementById('prereview-error').innerHTML = '<div class="err">⚠ 请粘贴至少 20 个单词的英文论文段落</div>';
-    return;
-  }
-
-  const btn = document.getElementById('btn-prereview');
-  const loading = document.getElementById('prereview-loading');
-  const result = document.getElementById('prereview-result');
-  const error = document.getElementById('prereview-error');
-
-  btn.disabled = true;
-  loading.style.display = 'block';
-  result.innerHTML = '';
-  error.innerHTML = '';
-
-  try {
-    const hint = currentSection !== 'auto' ? '\n\n[章节提示：这是 ' + currentSection + ' 部分]' : '';
-    const r = await callAPI(PREREVIEW_PROMPT, text + hint);
-    result.innerHTML = '<div class="result">' + renderMD(r) + '</div>';
-  } catch (e) {
-    error.innerHTML = '<div class="err">⚠ ' + e.message + '</div>';
-  }
-
-  btn.disabled = false;
-  loading.style.display = 'none';
-}
-</script>
 </body>
 </html>
